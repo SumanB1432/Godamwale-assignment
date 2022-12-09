@@ -3,8 +3,10 @@ let app = express();
 let mongoose = require("mongoose");
 let bodyPaser = require("body-parser");
 let route= require("./routes/route")
+let multer = require("multer")
 
 app.use(bodyPaser.json());
+app.use(multer().any())
 
 
 mongoose.set('strictQuery', false);

@@ -11,7 +11,7 @@ const isValid = (value) => {
 
 const createItem = async function (req,res){
     try {
-        let data = req.data;
+        let data = req.body;
         let {productname,quantity,stockPrice,sellprice}=data;
 
 
@@ -57,5 +57,31 @@ const createItem = async function (req,res){
         res.status(500).send({status:false,message:error.message})
     }
 }
+///////////////////////////////////------------------GET ITEM ----------------------/////////////////////
 
-module.exports = {createItem}
+const getItem = async function (req,res){
+   try {
+    let data =  req.query;
+    console.log(data)
+    
+    if(!data){
+        return res.status(400).send({status:false,message:"please provide some data for searching"})
+    }
+    if(!isValid(data.name)){
+        return res.status(400).send({status:false,message:"please provide a valid productname"})
+    }
+
+    let getProduct = await itemModel.findOne({productname:data.name,isDeleted:false});
+    if(!getProduct){
+        return res.status(404).send({status:false,message:`${data.name} is not found`})
+    }
+    return res.status(200).send({status:true,message:"Succesfull",data:getProduct})
+
+
+    
+   } catch (error) {
+    return res.status(500).send({status:false,message:error.message})
+   }
+}
+
+module.exports = {createItem,getItem}

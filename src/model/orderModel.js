@@ -6,7 +6,7 @@ const orderSchema = new mongoose.Schema({
         type:Number,
         required:true,
     },
-    customerNmae:{
+    customerName:{
         type:String,
         required:true,
 
@@ -18,9 +18,8 @@ const orderSchema = new mongoose.Schema({
         trim: true
     },
     customerAddress:{
-        street: { type: String, required: true },
-        city: { type: String, required: true },
-        pincode: { type: Number, required: true }
+     type:String,
+     required:true,
     },
     orderLineItems:{
         type:objectId,
