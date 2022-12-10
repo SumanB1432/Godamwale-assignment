@@ -1,7 +1,9 @@
 # Godamwale-assignment
 # INVENTORY SYSTEM
 
-******RUN COMMAND :- npm start.
+****FIRST RUN :- `nmp i ` TO INSTALL THE ALL NODE PACKAGE
+
+******RUN COMMAND :-` npm start`.
 
 # TECHNOLOGY USED :-
 1)NODE .JS.
