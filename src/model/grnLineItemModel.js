@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 
 const grnLineItemsSchema = new mongoose.Schema({
-    productNmae:{
+    productName:{
         type:String,
         required:true,
         trim:true,
@@ -11,7 +11,7 @@ const grnLineItemsSchema = new mongoose.Schema({
         type:Number,
         required:true,
     },
-    stckPrice:{
+    stockPrice:{
         type:Number,
         required:true,
     },

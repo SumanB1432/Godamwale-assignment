@@ -5,7 +5,6 @@ const grnSchema = new mongoose.Schema({
     vendorname:{
       type:String,
       required:true,
-      uppercase:true,
       trim:true,
     },
     invoiceNumber:{
@@ -18,10 +17,9 @@ const grnSchema = new mongoose.Schema({
         default:Date.now(),
         
     },
-    endorAddress: {
-            street: { type: String, required: true },
-            city: { type: String, required: true },
-            pincode: { type: Number, required: true }
+    vendorAddress: {
+        type:String,
+        required:true,
           },
     grnLineItems:{
         type:objectId,
