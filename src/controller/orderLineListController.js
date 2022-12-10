@@ -10,7 +10,10 @@ const isValid = (value) => {
 const createOrderLine = async function (req, res) {
   try {
     let data = req.body;
-    let { productname, quantity } = data;
+    let {
+      productname,
+      quantity
+    } = data;
 
     if (!Object.keys(data).length) {
       return res
@@ -23,7 +26,10 @@ const createOrderLine = async function (req, res) {
     if (!isValid(productname)) {
       return res
         .status(400)
-        .send({ status: false, message: "please provide product name" });
+        .send({
+          status: false,
+          message: "please provide product name"
+        });
     }
     let getProduct = await itemModel.findOne({
       productname: productname,
@@ -32,7 +38,10 @@ const createOrderLine = async function (req, res) {
     if (!getProduct) {
       return res
         .status(404)
-        .send({ status: false, message: `${productname} is not found` });
+        .send({
+          status: false,
+          message: `${productname} is not found`
+        });
     }
     let getOrder = await orderListModel.findOne({
       productname: productname,
@@ -42,10 +51,16 @@ const createOrderLine = async function (req, res) {
     if (!isValid(quantity)) {
       return res
         .status(400)
-        .send({ status: false, message: "please provide quentity" });
+        .send({
+          status: false,
+          message: "please provide quentity"
+        });
     }
-    if(quantity==0){
-        return res.status(400).send({status:false,message:"quantity should be greter then 0"})
+    if (quantity == 0) {
+      return res.status(400).send({
+        status: false,
+        message: "quantity should be greter then 0"
+      })
     }
     //CHECK QUANTITY
     let avilableQuantity;
@@ -63,7 +78,10 @@ const createOrderLine = async function (req, res) {
         });
     }
     if (getProduct.quantity == 0) {
-      return res.status(400).send({ status: false, message: "out of stock" });
+      return res.status(400).send({
+        status: false,
+        message: "out of stock"
+      });
     }
     //FIND TOTAL PRICE AND QUANTITY
     let price;
@@ -82,23 +100,42 @@ const createOrderLine = async function (req, res) {
       const createOrderList = await orderListModel.create(createDtata);
       return res
         .status(201)
-        .send({ status: true, message: "successfull", data: createOrderList });
+        .send({
+          status: true,
+          message: "successfull",
+          data: createOrderList
+        });
     } else {
-      const updateOrderList = await orderListModel.findOneAndUpdate(
-        { productname: productname, isDeleted: false },
-        { prductname: productname, quantity: totalQuantity, sellprice: price },
-        { new: true, upsert: true }
-      );
+      const updateOrderList = await orderListModel.findOneAndUpdate({
+        productname: productname,
+        isDeleted: false
+      }, {
+        prductname: productname,
+        quantity: totalQuantity,
+        sellprice: price
+      }, {
+        new: true,
+        upsert: true
+      });
       return res
         .status(201)
-        .send({ status: true, message: "successfull", data: updateOrderList });
+        .send({
+          status: true,
+          message: "successfull",
+          data: updateOrderList
+        });
     }
   } catch (error) {
-    return res.status(500).send({ status: false, message: error.message });
+    return res.status(500).send({
+      status: false,
+      message: error.message
+    });
   }
 };
 
 ///////////////---------DELETE ORDERLINELIST -----------------------///////////////////////////////
 
 
-module.exports = { createOrderLine };
+module.exports = {
+  createOrderLine
+};
