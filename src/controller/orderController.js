@@ -188,7 +188,7 @@ const updateOrder = async function (req, res) {
         })
     }
 }
-//////////////------GET ORDER------------------------///////////////////////////////
+//////////////////////////////------GET ORDER------------------------///////////////////////////////
 const getOrder = async function (req, res) {
     try {
         let orderId = req.params.orderId;
@@ -214,10 +214,24 @@ const getOrder = async function (req, res) {
                 message: `${orderId} is not found`
             })
         }
+        let orderLineItems = await orderLineItemModel.findOne({
+            _id: getOrder.orderLineItems
+        });
+        let totaldata = {
+            invoiceNumb: getOrder.invoiceNumber,
+            customerName: getOrder.customerName,
+            status: getOrder.status,
+            customerAddress: getOrder.customerAddress,
+            orderLineItems: [orderLineItems],
+            date: getOrder.date,
+            isDeleted: getOrder.isDeleted,
+
+
+        }
         return res.status(200).send({
             status: true,
             message: "successfull",
-            data: getOrder
+            data: totaldata
         })
     } catch (error) {
         return res.status(500).send({
@@ -226,7 +240,7 @@ const getOrder = async function (req, res) {
         })
     }
 }
-//////////////////-----------DELETE ORDER------------------/////////////////////////////////////////////////////////
+////////////////////////////////-----------DELETE ORDER------------------/////////////////////////////////////////////////////////
 const deleteOrder = async function (req, res) {
     try {
         let orderId = req.params.orderId;

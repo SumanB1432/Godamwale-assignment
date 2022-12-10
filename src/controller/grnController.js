@@ -111,7 +111,7 @@ const createGrn = async function (req, res) {
         })
     }
 }
-////////////////-----GET GRN ------------------/////////////////////////////////////////
+/////////////////////////////////////-----GET GRN ------------------/////////////////////////////////////////
 
 const getGrn = async function (req, res) {
     try {
@@ -140,10 +140,22 @@ const getGrn = async function (req, res) {
                 message: `${grnId} is not found`
             })
         }
+        let getGrnlineitem = await grnLineItemModel.findOne({
+            _id: getGrn.grnLineItems
+        })
+        let totaldata = {
+            vendorname: getGrn.vendorname,
+            invoiceNumber: getGrn.invoiceNumber,
+            date: getGrn.date,
+            vendorAddress: getGrn.vendorAddress,
+            grnLineItems: [getGrnlineitem],
+            status: getGrn.status,
+            isDeleted: getGrn.isDeleted
+        }
         return res.status(200).send({
             status: true,
             message: "successfull",
-            data: getGrn
+            data: totaldata
         })
 
     } catch (error) {
